@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><root>
+    <fines>
+    <fine><key>0</key>><name>Игорь</name><goss>af543g</goss><type>превышение скорости</type><date>20.02.2015</date></fine>
+    <fine><key>0</key>><name>Игорь</name><goss>af543g</goss><type>парковка в неположенном месте</type><date>24.02.2015</date></fine>
+    <fine><key>1</key>><name>Мария</name><goss>8w76586</goss><type>превышение скорости</type><date>20.02.2016</date></fine>
+    <fine><key>2</key>><name>Влад</name><goss>qw584k</goss><type>превышение скорости</type><date>20.02.2015</date></fine>
+    </fines>
+</root>
