@@ -40,7 +40,7 @@ public class admin_window {
         auto_list.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                fine_list.main(args);
+                Auto_list.main(args);
                 main_frame.setVisible(false);
             }
         });;
@@ -56,7 +56,11 @@ public class admin_window {
         on_main.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Main_window.main(args);
+                try {
+                    Main_window.main(args);
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
                 main_frame.setVisible(false);
             }
         });;

@@ -194,7 +194,11 @@ public class fine_list {
 
 
     public static void main(String[] args) {
-
+        /**
+         * @param args
+         * @return
+         * @throws TransformerException
+         */
         ImageIcon img = new ImageIcon("img/Dark_min.jpg"); //Трехлистник из тьмы))
 
         //Окна
@@ -280,6 +284,7 @@ public class fine_list {
 
         //Таблица
         Table_model model = new Table_model();
+        model.columnCount = 7;
         JTable info_table = new JTable(model);//Создаем таблицу
         JScrollPane scroll = new JScrollPane(info_table);//Задаем прокрутку нашей таблице
         scroll.setPreferredSize(new Dimension(950, 550)); //Задаем размеры окна
@@ -421,7 +426,11 @@ public class fine_list {
         On_main.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Main_window.main(args);
+                try {
+                    Main_window.main(args);
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
                 main_frame.setVisible(false);
             }
         });;
@@ -547,7 +556,7 @@ public class fine_list {
         go_to_cinema_list.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                auto_list.main(args);
+                Auto_list.main(args);
                 main_frame.setVisible(false);
             }
         });;

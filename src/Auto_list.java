@@ -51,38 +51,9 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 
-public class auto_list {
+public class Auto_list {
 
-    public static void parse_xml_film(Table_model model, int row_count) { //метод, чтобы доставать фильмы из xml файла
-        int not_node_el = 0;
-        for(int i = 0; i < row_count; i++) {
-            model.get_row_sel_del(0);
-        }
-        File file = new File("fileData.xml");//берем файл
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        org.w3c.dom.Document doc = null;
-        try {
-            doc = dbf.newDocumentBuilder().parse(file); //Парсим файл
-        } catch(Exception e) {
-            return;
-        }
-        NodeList film =  doc.getElementsByTagName("cinema_info"); //Берем все теги film из xml
-        NodeList film_BIG_child =  film.item(0).getChildNodes(); //Берем все теги film из xml
-        for(int i = 0; i < film_BIG_child.getLength(); i++) {
-            String [] str = new String[6];
-            NodeList film_child = film_BIG_child.item(i).getChildNodes();
-            if(film_child.getLength() >= 5) {
-                for(int j = 0; j < film_child.getLength(); j++){
-                    if(film_child.item(j).getNodeType() == Node.ELEMENT_NODE) {
-                        str[j - not_node_el] = film_child.item(j).getTextContent(); //Загоняем инфу в массив
-                    }
-                    else not_node_el += 1;
-                }
-                model.addDate(str);//добавляем строку в таблицу с фильмами
-                not_node_el = 0;
-            }
-        }
-    }
+
 
     public static void save_to_xml(Table_model model, int row_count, JTable info_table) throws TransformerFactoryConfigurationError, TransformerException { //метод, чтобы сохранять в xml файл
 
@@ -260,6 +231,11 @@ public class auto_list {
     }
 
     public static void main(String[] args) {
+        /**
+         * @param args
+         * @return
+         * @throws TransformerException
+         */
 
         ImageIcon img = new ImageIcon("img/Dark_min.jpg"); //Трехлистник из тьмы))
 
@@ -282,8 +258,8 @@ public class auto_list {
         JButton back = new JButton("Назад");
         JButton filter = new JButton("Сброс поиска");
         JButton search = new JButton("Поиск");
-        JButton go_to_cinema_list = new JButton("Посмотреть список фильмов");
-        JButton go_to_cinema_window = new JButton("Перейти в выбранный кинотеатр");
+        JButton go_to_cinema_list = new JButton("Посмотреть список штрафов");
+        JButton go_to_cinema_window = new JButton("профиль выбранного автомобилиста");
 
         //Кнопки верхний ряд
         JButton save = new JButton("Сохранить");
@@ -311,19 +287,19 @@ public class auto_list {
 
         //Выпадащий список(Для поиска)
         String [] str_search = new String[5];
-        str_search[0] = "Название кинотеатра";
-        str_search[1] = "Оценка от посетителей";
-        str_search[2] = "Вместимость кинотеатра";
-        str_search[3] = "Время работы";
-        str_search[4] = "Количество залов";
+        str_search[0] = "ФИО";
+        str_search[1] = "Паспорт";
+        str_search[2] = "Гос номер";
+        str_search[3] = "Марка машины";
+        str_search[4] = "Дата последнего тех осмотра";
         JComboBox<Object> list_search = new JComboBox<Object>(str_search); //Зачем <Object> не знаю, eclipce попросил докинуть, чтобы не подчеркивалось х)
 
         //Подписи к текстовым полям(Для добавления нового фильма)
-        JLabel name_cinema_label = new JLabel("Введите название кинотеатра:");
-        JLabel rate_label = new JLabel("Введите оценку от посетителей:");
-        JLabel capacity_label = new JLabel("Введите вместимость кинотеатра:");
-        JLabel time_label = new JLabel("Введите время работы кинотеатра:");
-        JLabel Hall_label = new JLabel("Введите количество залов:");
+        JLabel name_auto_label = new JLabel("Введите ФИО:");
+        JLabel pass_label = new JLabel("Введите Паспорт:");
+        JLabel number_label = new JLabel("Введите Гос номер:");
+        JLabel mark_label = new JLabel("Введите Марку машины:");
+        JLabel technical_inspection_label = new JLabel("Введите Дату последнего тех осмотра:");
 
         //Подписи к текстовым полям(Для поиска)
         JLabel search_label = new JLabel("Выберете параметр для поиска:");
@@ -331,17 +307,17 @@ public class auto_list {
 
         //Таблица
         Table_model model = new Table_model();
-        model.columnCount = 5;
+        model.columnCount = 6;
         JTable info_table = new JTable(model);//Создаем таблицу
         JScrollPane scroll = new JScrollPane(info_table);//Задаем прокрутку нашей таблице
         scroll.setPreferredSize(new Dimension(950, 550)); //Задаем размеры окна
 
-        parse_xml_film(model, info_table.getRowCount()); //Заносим инфу в таблицу
+        //parse_xml_film(model, info_table.getRowCount()); //Заносим инфу в таблицу
 
         //Параметры основного окна
         main_frame.setSize(1030, 700); //Размеры окна
         main_frame.setIconImage(img.getImage()); //Ставим иконку окна
-        main_frame.setTitle("Список кинотеатров"); //Заголово окна
+        main_frame.setTitle("База автомобилистов"); //Заголово окна
         main_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Что происходит при нажатии на крестик(В нашем случае закрытие)
         main_frame.setResizable(false);//Запрещаем дополнительно развертывать окно
         main_frame.setLocationRelativeTo(null);//Располагаем окно в центре экрана
@@ -350,7 +326,7 @@ public class auto_list {
         //Параметры окна для добавления фильма в таблицу
         make_new_table_row.setSize(400, 400); //Размеры окна
         make_new_table_row.setIconImage(img.getImage()); //Ставим иконку окна
-        make_new_table_row.setTitle("Добавление нового кинотеатра"); //Заголово окна
+        make_new_table_row.setTitle("Добавление нового водителя"); //Заголово окна
         make_new_table_row.setResizable(false);//Запрещаем дополнительно развертывать окно
         make_new_table_row.setLocationRelativeTo(null);//Располагаем окно в центре экрана
         make_new_table_row.setLayout(new BorderLayout());//Способ размещения внутри окна
@@ -412,15 +388,15 @@ public class auto_list {
         button_panel_top.add(Box.createHorizontalStrut(10));
         button_panel_top.add(save_pdf);
 
-        table_new_el_panel.add(name_cinema_label);
+        table_new_el_panel.add(name_auto_label);
         table_new_el_panel.add(name_cinema);
-        table_new_el_panel.add(rate_label);
+        table_new_el_panel.add(pass_label);
         table_new_el_panel.add(rate);
-        table_new_el_panel.add(capacity_label);
+        table_new_el_panel.add(number_label);
         table_new_el_panel.add(capacity);
-        table_new_el_panel.add(time_label);
+        table_new_el_panel.add(mark_label);
         table_new_el_panel.add(time);
-        table_new_el_panel.add(Hall_label);
+        table_new_el_panel.add(technical_inspection_label);
         table_new_el_panel.add(Hall);
         table_new_el_panel.add(Box.createHorizontalStrut(10));
         table_new_el_panel.add(new_cinema);
@@ -449,7 +425,7 @@ public class auto_list {
         make_new.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                make_new_table_row.setTitle("Добавление нового кинотеатра");
+                make_new_table_row.setTitle("Добавление нового водителя");
                 name_cinema.setText("");
                 rate.setText("");
                 capacity.setText("");
@@ -470,7 +446,11 @@ public class auto_list {
         On_main.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Main_window.main(args);
+                try {
+                    Main_window.main(args);
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
                 main_frame.setVisible(false);
             }
         });;
@@ -490,11 +470,11 @@ public class auto_list {
                     table_panel.add(scroll);
                 }
                 else if(flag[0] == "2") {
-                    parse_xml_film(model, info_table.getRowCount());
+                    //parse_xml_film(model, info_table.getRowCount());
                     flag[0] = "-1";
                 }
                 else {
-                    make_new_table_row.setTitle("Добавление нового кинотеатра");
+                    make_new_table_row.setTitle("Добавление нового водителя");
                     String [] new_str = new String[6];
                     new_str[0] = name_cinema.getText();
                     new_str[1] = rate.getText();
@@ -524,7 +504,7 @@ public class auto_list {
                     }
                     else {
                         flag[0] = "-1";
-                        parse_xml_film(model, info_table.getRowCount());
+                        //parse_xml_film(model, info_table.getRowCount());
                         table_panel.add(scroll);
                     }
                 }
@@ -557,7 +537,7 @@ public class auto_list {
             @Override
             public void actionPerformed(ActionEvent e) {
                 flag[0] = "-1";
-                parse_xml_film(model, info_table.getRowCount());
+                //parse_xml_film(model, info_table.getRowCount());
                 table_panel.add(scroll);
             }
         });;

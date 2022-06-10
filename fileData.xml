@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><root>
+
+	<СеверныйВинден>
+		<monday>
+			<cinema>
+				<film_name>Портрет Дориана Грея</film_name>
+				<film_rate>9/10</film_rate>
+				<film_time>17:20</film_time>
+				<film_prise>120</film_prise>
+				<film_genre>Триллер</film_genre>
+				<film_duration>180</film_duration>
+				<film_age>18+</film_age>
+			</cinema>
+		</monday>
+		<tuesday>
+			<cinema>
+				<film_name>Властелин колец</film_name>
+				<film_rate>8/10</film_rate>
+				<film_time>16:20</film_time>
+				<film_prise>220</film_prise>
+				<film_genre>Фэнтези</film_genre>
+				<film_duration>180</film_duration>
+				<film_age>16+</film_age>
+			</cinema>
+		</tuesday>
+		<wednesday>
+			<cinema>
+				<film_name>Крестный отец</film_name>
+				<film_rate>8/10</film_rate>
+				<film_time>18:20</film_time>
+				<film_prise>300</film_prise>
+				<film_genre>Драма</film_genre>
+				<film_duration>180</film_duration>
+				<film_age>18+</film_age>
+			</cinema>
+		</wednesday>
+		<thursday>
+			<cinema>
+				<film_name>Малыш на драйве</film_name>
+				<film_rate>7/10</film_rate>
+				<film_time>17:20</film_time>
+				<film_prise>250</film_prise>
+				<film_genre>Триллер</film_genre>
+				<film_duration>180</film_duration>
+				<film_age>16+</film_age>
+			</cinema>
+		</thursday>
+		<friday>
+			<cinema>
+				<film_name>Каратель</film_name>
+				<film_rate>4/10</film_rate>
+				<film_time>23:20</film_time>
+				<film_prise>300</film_prise>
+				<film_genre>Боевик</film_genre>
+				<film_duration>180</film_duration>
+				<film_age>18+</film_age>
+			</cinema>
+		</friday>
+		<saturday>
+			<cinema>
+				<film_name>Душа</film_name>
+				<film_rate>8/10</film_rate>
+				<film_time>13:20</film_time>
+				<film_prise>100</film_prise>
+				<film_genre>Мультфильм</film_genre>
+				<film_duration>180</film_duration>
+				<film_age>6+</film_age>
+			</cinema>
+		</saturday>
+		<sunday>
+			<cinema>
+				<film_name>Назад в будущее</film_name>
+				<film_rate>7/10</film_rate>
+				<film_time>15:20</film_time>
+				<film_prise>320</film_prise>
+				<film_genre>Фантастика</film_genre>
+				<film_duration>180</film_duration>
+				<film_age>12+</film_age>
+			</cinema>
+		</sunday>
+	</СеверныйВинден>
+	
+	<ЮжныйВинден>
+		<monday>
+			<cinema>
+				<film_name>Портрет Дориана Грея</film_name>
+				<film_rate>9/10</film_rate>
+				<film_time>17:20</film_time>
+				<film_prise>120</film_prise>
+				<film_genre>Триллер</film_genre>
+				<film_duration>180</film_duration>
+				<film_age>18+</film_age>
+			</cinema>
+		</monday>
+		<tuesday>
+			<cinema>
+				<film_name>Властелин колец</film_name>
+				<film_rate>8/10</film_rate>
+				<film_time>16:20</film_time>
+				<film_prise>220</film_prise>
+				<film_genre>Фэнтези</film_genre>
+				<film_duration>180</film_duration>
+				<film_age>16+</film_age>
+			</cinema>
+		</tuesday>
+		<wednesday>
+			<cinema>
+				<film_name>Крестный отец</film_name>
+				<film_rate>8/10</film_rate>
+				<film_time>18:20</film_time>
+				<film_prise>300</film_prise>
+				<film_genre>Драма</film_genre>
+				<film_duration>180</film_duration>
+				<film_age>18+</film_age>
+			</cinema>
+		</wednesday>
+		<thursday>
+			<cinema>
+				<film_name>Малыш на драйве</film_name>
+				<film_rate>7/10</film_rate>
+				<film_time>17:20</film_time>
+				<film_prise>250</film_prise>
+				<film_genre>Триллер</film_genre>
+				<film_duration>180</film_duration>
+				<film_age>16+</film_age>
+			</cinema>
+		</thursday>
+		<friday>
+			<cinema>
+				<film_name>Каратель</film_name>
+				<film_rate>4/10</film_rate>
+				<film_time>23:20</film_time>
+				<film_prise>300</film_prise>
+				<film_genre>Боевик</film_genre>
+				<film_duration>180</film_duration>
+				<film_age>18+</film_age>
+			</cinema>
+		</friday>
+		<saturday>
+			<cinema>
+				<film_name>Душа</film_name>
+				<film_rate>8/10</film_rate>
+				<film_time>13:20</film_time>
+				<film_prise>100</film_prise>
+				<film_genre>Мультфильм</film_genre>
+				<film_duration>180</film_duration>
+				<film_age>6+</film_age>
+			</cinema>
+		</saturday>
+		<sunday>
+			<cinema>
+				<film_name>Назад в будущее</film_name>
+				<film_rate>7/10</film_rate>
+				<film_time>15:20</film_time>
+				<film_prise>320</film_prise>
+				<film_genre>Фантастика</film_genre>
+				<film_duration>180</film_duration>
+				<film_age>12+</film_age>
+			</cinema>
+		</sunday>
+	</ЮжныйВинден>
+	
+	<cinema_info>
+		<cinema_i>
+			<name_cinema>Северный Винден</name_cinema>
+			<rate>8/10</rate>
+			<capacity>2000</capacity>
+			<time>8:00-23:55</time>
+			<hall>3</hall>
+		</cinema_i>
+		<cinema_i>
+			<name_cinema>Южный Винден</name_cinema>
+			<rate>9/10</rate>
+			<capacity>4000</capacity>
+			<time>8:00-23:55</time>
+			<hall>6</hall>
+		</cinema_i>
+	</cinema_info>
+</root>

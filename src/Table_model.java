@@ -32,34 +32,33 @@ public class Table_model extends AbstractTableModel{
 
     @Override
     public String getColumnName(int columnIndex) { //Заголовки таблицы
-        if(columnCount == 5) {
+        if(columnCount == 6) {
             switch(columnIndex) {
                 case 0: return "ФИО";
                 case 1: return "Паспорт";
                 case 2: return "Гос номер";
                 case 3: return "Марка машины";
                 case 4: return "Дата последнего тех осмотра";
-            }
-            return "";
-        }
-        else if(columnCount == 7) {
-            switch(columnIndex) {
-                case 0: return "Название фильма";
-                case 1: return "Рейтинг фильма";
-                case 2: return "Время";
-                case 3: return "Цена";
-                case 4: return "Жанр";
-                case 5: return "Длительность";
-                case 6: return "Возрастное ограничение";
+                case 5 : return "количество штрафов";
             }
             return "";
         }
         else if(columnCount == 4) {
             switch(columnIndex) {
+                case 0: return "Тип нарушения";
+                case 1: return "Дата нарушения";
+                case 2: return "Характеристика";
+                case 3: return "Цена";
+            }
+            return "";
+        }
+        else if(columnCount == 5) {
+            switch(columnIndex) {
                 case 0: return "ФИО";
                 case 1: return "Гос номер";
-                case 2: return "Дата нарушения";
-                case 3: return "тип нарушения";
+                case 2: return "тип нарушения";
+                case 3: return "Дата нарушения";
+                case 4: return "цена";
             }
             return "";
         }
