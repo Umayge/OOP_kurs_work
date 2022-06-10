@@ -171,11 +171,11 @@ public class Auto_list {
 
         Document document = new Document(PageSize.A4, 50, 50, 50, 50);
 
-        PdfPTable t = new PdfPTable(5);
+        PdfPTable t = new PdfPTable(4);
 
         try {
 
-            PdfWriter.getInstance(document, new FileOutputStream("cinema_list.pdf"));
+            PdfWriter.getInstance(document, new FileOutputStream("one.pdf"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (DocumentException e) {
@@ -185,7 +185,7 @@ public class Auto_list {
         BaseFont bfComic = null;
 
         try {
-            bfComic = BaseFont.createFont("/Windows/Fonts/Arial.ttf" ,BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            bfComic = BaseFont.createFont("PT-Astra-Serif_Regular.ttf" ,BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 
         } catch (DocumentException e1) {
             e1.printStackTrace();
@@ -193,12 +193,13 @@ public class Auto_list {
             e1.printStackTrace();
         }
 
-        Font font1 = new Font(bfComic, 9);
-        t.addCell(new PdfPCell(new Phrase("Название кинотеатра", font1)));
-        t.addCell(new PdfPCell(new Phrase("Оценка от посетителей", font1)));
-        t.addCell(new PdfPCell(new Phrase("Вместимость кинотеатра", font1)));
-        t.addCell(new PdfPCell(new Phrase("Время работы", font1)));
-        t.addCell(new PdfPCell(new Phrase("Количество залов", font1)));
+        Font font1 = new Font(bfComic, 6);
+        t.addCell(new PdfPCell(new Phrase("ФИО", font1)));
+        t.addCell(new PdfPCell(new Phrase("Паспорт", font1)));
+        t.addCell(new PdfPCell(new Phrase("Гос номер", font1)));
+        t.addCell(new PdfPCell(new Phrase("Марка машины", font1)));
+        t.addCell(new PdfPCell(new Phrase("Дата последнего тех. осмотра", font1)));
+        t.addCell(new PdfPCell(new Phrase("Количество штрафов", font1)));
         for(int i = 0; i < model.getRowCount(); i++){
 
             t.addCell(new Phrase((String) model.getValueAt(i,0),font1));
@@ -206,6 +207,7 @@ public class Auto_list {
             t.addCell(new Phrase((String) model.getValueAt(i,2),font1));
             t.addCell(new Phrase((String) model.getValueAt(i,3),font1));
             t.addCell(new Phrase((String) model.getValueAt(i,4),font1));
+            t.addCell(new Phrase((String) model.getValueAt(i,5),font1));
         }
         document.open();
         try {
@@ -214,30 +216,11 @@ public class Auto_list {
             e.printStackTrace();
         }
         document.close();
-
-        //html
-        PrintWriter pw = null;
-        try {
-            pw = new PrintWriter(new FileWriter("cinema_list.html"));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        pw.println("<TABLE BORDER><TR><TH>Название кинотеатра<TH>Оценка от посетителей<TH>Вместимость кинотеатр<TH>Время работы<TH>Количество залов<TH></TR>");
-        for(int i = 0; i < model.getRowCount(); i++) {
-            pw.println("<TR><TD>" + (String) model.getValueAt(i,0) + "<TD>" + (String) model.getValueAt(i,1) + "<TD>" + (String) model.getValueAt(i,2) + "<TD>" + (String) model.getValueAt(i,3)+ "<TD>" + (String) model.getValueAt(i,4));
-        }
-        pw.close();
     }
 
-    public static void main(String[] args) {
-        /**
-         * @param args
-         * @return
-         * @throws TransformerException
-         */
+    public static void main(Root root) {
 
-        ImageIcon img = new ImageIcon("img/Dark_min.jpg"); //Трехлистник из тьмы))
+
 
         //Окна
         JFrame main_frame = new JFrame(); //Основное окно, в котором находится все остальное
@@ -316,7 +299,7 @@ public class Auto_list {
 
         //Параметры основного окна
         main_frame.setSize(1030, 700); //Размеры окна
-        main_frame.setIconImage(img.getImage()); //Ставим иконку окна
+
         main_frame.setTitle("База автомобилистов"); //Заголово окна
         main_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Что происходит при нажатии на крестик(В нашем случае закрытие)
         main_frame.setResizable(false);//Запрещаем дополнительно развертывать окно
@@ -325,7 +308,7 @@ public class Auto_list {
 
         //Параметры окна для добавления фильма в таблицу
         make_new_table_row.setSize(400, 400); //Размеры окна
-        make_new_table_row.setIconImage(img.getImage()); //Ставим иконку окна
+
         make_new_table_row.setTitle("Добавление нового водителя"); //Заголово окна
         make_new_table_row.setResizable(false);//Запрещаем дополнительно развертывать окно
         make_new_table_row.setLocationRelativeTo(null);//Располагаем окно в центре экрана
@@ -333,7 +316,7 @@ public class Auto_list {
 
         //Параметры окна для поиска
         search_wind.setSize(250, 300); //Размеры окна
-        search_wind.setIconImage(img.getImage()); //Ставим иконку окна
+
         search_wind.setTitle("Поиск"); //Заголово окна
         search_wind.setResizable(false);//Запрещаем дополнительно развертывать окно
         search_wind.setLocationRelativeTo(null);//Располагаем окно в центре экрана
@@ -438,7 +421,7 @@ public class Auto_list {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                admin_window.main(args);
+                admin_window.main(root);
                 main_frame.setVisible(false);
             }
         });;
@@ -447,7 +430,7 @@ public class Auto_list {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Main_window.main(args);
+                    Main_window.main(null);
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
@@ -561,8 +544,8 @@ public class Auto_list {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(info_table.getSelectedRow() != -1) {
-                    auto_window.name_cinema = (info_table.getValueAt(info_table.getSelectedRow(), 0).toString());
-                    auto_window.main(args);
+                    auto_window.name_man = (info_table.getValueAt(info_table.getSelectedRow(), 0).toString());
+                    auto_window.main(root);
                     main_frame.setVisible(false);
                 }
             }
@@ -571,7 +554,7 @@ public class Auto_list {
         go_to_cinema_list.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                fine_list.main(args);
+                fine_list.main(root);
                 main_frame.setVisible(false);
             }
         });;

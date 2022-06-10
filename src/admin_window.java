@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.GridBagLayout;
 
 public class admin_window {
-    public static void main(String[] args) {
+    public static void main(Root root) {
         ImageIcon img = new ImageIcon("../ico/gbdd.png");
         JFrame main_frame = new JFrame();
         JPanel button_panel = new JPanel();
@@ -40,7 +40,7 @@ public class admin_window {
         auto_list.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Auto_list.main(args);
+                Auto_list.main(root);
                 main_frame.setVisible(false);
             }
         });;
@@ -48,7 +48,7 @@ public class admin_window {
         violation_list.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                fine_list.main(args);
+                fine_list.main(root);
                 main_frame.setVisible(false);
             }
         });;
@@ -57,7 +57,7 @@ public class admin_window {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Main_window.main(args);
+                    Main_window.main(null);
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }

@@ -11,6 +11,10 @@ public class Root {
         return people;
     }
 
+    public List<Fine> getFine() {
+        return fine;
+    }
+
     public void setPeople(List<People> people) {
         this.people = people;
     }

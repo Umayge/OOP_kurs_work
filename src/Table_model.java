@@ -45,20 +45,11 @@ public class Table_model extends AbstractTableModel{
         }
         else if(columnCount == 4) {
             switch(columnIndex) {
-                case 0: return "Тип нарушения";
-                case 1: return "Дата нарушения";
-                case 2: return "Характеристика";
-                case 3: return "Цена";
-            }
-            return "";
-        }
-        else if(columnCount == 5) {
-            switch(columnIndex) {
                 case 0: return "ФИО";
                 case 1: return "Гос номер";
                 case 2: return "тип нарушения";
                 case 3: return "Дата нарушения";
-                case 4: return "цена";
+
             }
             return "";
         }

@@ -9,7 +9,13 @@ public class People {
     private List<Fine> fines;
     private int key;
 
-    public void setKey(int key) {
+    public People(String name, String pass, String goss_number, String mark, String date_techn_inspect, List<Fine> fines, int key) {
+        this.name = name;
+        this.pass = pass;
+        this.goss_number = goss_number;
+        this.mark = mark;
+        this.date_techn_inspect = date_techn_inspect;
+        this.fines = fines;
         this.key = key;
     }
 
@@ -41,30 +47,7 @@ public class People {
         return date_techn_inspect;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
-    public void setPass(String pass) {
-        this.pass = pass;
-    }
-
-    public void setGoss_number(String goss_number) {
-        this.goss_number = goss_number;
-    }
-
-    public void setMark(String mark) {
-        this.mark = mark;
-    }
-
-    public void setDate_techn_inspect(String date_techn_inspect) {
-        this.date_techn_inspect = date_techn_inspect;
-    }
-
-
-    public void setFines(List<Fine> fines) {
-        this.fines = fines;
-    }
 
 
 }
