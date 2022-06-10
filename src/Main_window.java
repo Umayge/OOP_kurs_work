@@ -19,7 +19,7 @@ public class Main_window {
         Node peoplesNode =null;
         Node finesNode =null;
         Root root = new Root();
-        Document doc = buildDocument("FineData.xml");
+        Document doc = buildDocument("FineData1.xml");
         Node rootNode = doc.getFirstChild();
         NodeList rootChilds = rootNode.getChildNodes();
         for(int i = 0; i< rootChilds.getLength();i++)

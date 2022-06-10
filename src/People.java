@@ -19,6 +19,30 @@ public class People {
         this.key = key;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
+    public void setGoss_number(String goss_number) {
+        this.goss_number = goss_number;
+    }
+
+    public void setMark(String mark) {
+        this.mark = mark;
+    }
+
+    public void setDate_techn_inspect(String date_techn_inspect) {
+        this.date_techn_inspect = date_techn_inspect;
+    }
+
+    public void setFines(List<Fine> fines) {
+        this.fines = fines;
+    }
+
     public int getKey() {
         return key;
     }

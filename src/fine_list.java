@@ -67,50 +67,6 @@ public class fine_list {
             model.addDate(str);
         }
     }
-    public static void save_to_xml(Table_model model, int row_count, JTable info_table) throws TransformerFactoryConfigurationError, TransformerException { //метод, чтобы сохранять в xml файл
-
-        File file = new File("fileData.xml");//берем файл
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        org.w3c.dom.Document doc = null;
-        try {
-            doc = dbf.newDocumentBuilder().parse(file); //Парсим файл
-        } catch(Exception e) {
-            return;
-        }
-        NodeList film =  doc.getElementsByTagName("film"); //Берем все теги film из xml
-        NodeList root =  doc.getElementsByTagName("root");
-
-        for(int i = 0; i < film.getLength(); i++) film.item(i).setTextContent("");
-
-        for(int i = 0; i < row_count; i++) {
-            Element film_new = doc.createElement("film");
-            root.item(0).appendChild(film_new);
-            Element film_name = doc.createElement("film_name");
-            Element film_place = doc.createElement("film_place");
-            Element film_time = doc.createElement("film_time");
-            Element film_prise = doc.createElement("film_prise");
-            Element film_genre = doc.createElement("film_genre");
-            Element film_duration = doc.createElement("film_duration");
-
-            film_name.setTextContent((String) info_table.getValueAt(i, 0));
-            film_place.setTextContent((String) info_table.getValueAt(i, 1));
-            film_time.setTextContent((String) info_table.getValueAt(i, 2));
-            film_prise.setTextContent((String) info_table.getValueAt(i, 3));
-            film_genre.setTextContent((String) info_table.getValueAt(i, 4));
-            film_duration.setTextContent((String) info_table.getValueAt(i, 5));
-
-            film.item(i).appendChild(film_name);
-            film.item(i).appendChild(film_place);
-            film.item(i).appendChild(film_time);
-            film.item(i).appendChild(film_prise);
-            film.item(i).appendChild(film_genre);
-            film.item(i).appendChild(film_duration);
-        }
-        Transformer transformer = TransformerFactory.newInstance().newTransformer();
-        Source source = new DOMSource(doc);
-        Result result = new StreamResult(file);
-        transformer.transform (source, result); // Преобразовать XML ==> Источник в результат
-    }
 
     public static void make_report(Table_model model,String date1, String date2){
         LocalDate ldate1 = LocalDate.parse(date1);
@@ -192,8 +148,8 @@ public class fine_list {
         JButton On_main = new JButton("На главную");
         JButton filter = new JButton("Сброс поиска");
         JButton search = new JButton("Поиск");
-        JButton go_to_cinema_list = new JButton("База автомобилистов");
-        JButton go_to_genre_list = new JButton("Перейти к штрафам выбранного автомобилиста");
+        JButton go_to_auto_list = new JButton("База автомобилистов");
+        JButton go_to_auto_window = new JButton("Перейти к штрафам выбранного автомобилиста");
 
         //Кнопки верхний ряд
         JButton save = new JButton("Сохранить");
@@ -306,8 +262,8 @@ public class fine_list {
         button_panel.add(filter);
         button_panel.add(search);
         button_panel.add(Box.createHorizontalStrut(50));
-        button_panel.add(go_to_cinema_list);
-        button_panel.add(go_to_genre_list);
+        button_panel.add(go_to_auto_list);
+        button_panel.add(go_to_auto_window);
 
         button_panel_top.add(save);
         button_panel_top.add(Box.createHorizontalStrut(10));
@@ -428,7 +384,7 @@ public class fine_list {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    save_to_xml(model, info_table.getRowCount(), info_table);
+                    save_xml.save_to_xml(root);
                 } catch (TransformerFactoryConfigurationError e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
@@ -439,18 +395,18 @@ public class fine_list {
             }
         });;
 
-        go_to_genre_list.addActionListener(new ActionListener() {
+        go_to_auto_window.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(info_table.getSelectedRow() != -1) {
                     auto_window.name_man = (model.getValueAt(info_table.getSelectedRow(), 4).toString());
-                    auto_window.main(root);
+                    auto_window.main(root,Integer.valueOf(model.getValueAt(info_table.getSelectedRow(), 4).toString()));
                     main_frame.setVisible(false);
                 }
             }
         });;
 
-        go_to_cinema_list.addActionListener(new ActionListener() {
+        go_to_auto_list.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Auto_list.main(root);

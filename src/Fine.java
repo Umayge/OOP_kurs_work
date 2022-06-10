@@ -12,6 +12,22 @@ public class Fine {
         this.key = key;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setGoss(String goss) {
+        this.goss = goss;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     private int key;
 
     public String getName() {

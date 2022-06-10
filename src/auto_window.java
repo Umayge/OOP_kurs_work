@@ -134,7 +134,7 @@ public class auto_window {
 
     public static String name_man;
 
-    public static void main(Root root) {
+    public static void main(Root root, int key) {
 
         String save_name = null;
 
@@ -395,23 +395,22 @@ public class auto_window {
         new_fine.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int k=0;
+                for(k=0;k<root.getPeople().size();k++)
+                {
+                    if(root.getPeople().get(k).getKey()==key)
+                        break;
+                }
                 make_new_table_row.setVisible(false);
                     String [] new_str = new String[4];
-                    new_str[0] = model.getValueAt(0,0).toString();
-                    new_str[1] = model.getValueAt(0,1).toString();
+                    new_str[0] = root.getPeople().get(k).getName();
+                    new_str[1] = root.getPeople().get(k).getGoss_number();
                     new_str[2] = type_violation.getText();
                     new_str[3] = date.getText();
 
-                    Fine fine =new Fine(model.getValueAt(0,0).toString(),model.getValueAt(0,1).toString(),type_violation.getText(),date.getText(),Integer.valueOf(name_man));
+                    Fine fine = new Fine(root.getPeople().get(k).getName(),root.getPeople().get(k).getGoss_number(),type_violation.getText(),date.getText(),k);
                     root.getFine().add(fine);
-                    for(int i=0;i<root.getPeople().size();i++)
-                    {
-                        if(root.getPeople().get(i).getKey()==Integer.valueOf(name_man))
-                        {
-                            root.getPeople().get(i).getFines().add(fine);
-                            break;
-                        }
-                    }
+                    root.getPeople().get(k).getFines().add(fine);
                     model.addDate(new_str);
                     table_panel.add(scroll);
                 if(info_table.getSelectedRow() != -1) {

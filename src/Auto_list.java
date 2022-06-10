@@ -10,6 +10,8 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 //import com.itextpdf.text.Document;
@@ -52,126 +54,30 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 
 public class Auto_list {
-
-
-
-    public static void save_to_xml(Table_model model, int row_count, JTable info_table) throws TransformerFactoryConfigurationError, TransformerException { //метод, чтобы сохранять в xml файл
-
-        File file = new File("fileData.xml");//берем файл
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        org.w3c.dom.Document doc = null;
-        Node new_el = null;
-        try {
-            doc = dbf.newDocumentBuilder().parse(file); //Парсим файл
-        } catch(Exception e) {
-            return;
-        }
-        NodeList root =  doc.getElementsByTagName("cinema_info");
-        NodeList film =  root.item(0).getChildNodes(); //Берем все теги film из xml
-
-        for(int i = 0; i < film.getLength(); i++) film.item(i).setTextContent("");
-
+    public static void make_table(Table_model model, int row_count,Root root)
+    {
+        int not_node_el = 0;
         for(int i = 0; i < row_count; i++) {
-            Element film_new = doc.createElement("cinema_i");
-            new_el = root.item(0).appendChild(film_new);
-            Element film_name = doc.createElement("name_cinema");
-            Element film_place = doc.createElement("rate");
-            Element film_time = doc.createElement("capacity");
-            Element film_prise = doc.createElement("time");
-            Element film_genre = doc.createElement("hall");
-
-            film_name.setTextContent((String) info_table.getValueAt(i, 0));
-            film_place.setTextContent((String) info_table.getValueAt(i, 1));
-            film_time.setTextContent((String) info_table.getValueAt(i, 2));
-            film_prise.setTextContent((String) info_table.getValueAt(i, 3));
-            film_genre.setTextContent((String) info_table.getValueAt(i, 4));
-
-            new_el.appendChild(film_name);
-            new_el.appendChild(film_place);
-            new_el.appendChild(film_time);
-            new_el.appendChild(film_prise);
-            new_el.appendChild(film_genre);
+            model.get_row_sel_del(0);
         }
-
-        film =  root.item(0).getChildNodes();
-        for(int i = 0; i <film.getLength(); i++) {
-            for(int j = 0; j < film.item(i).getChildNodes().getLength(); j++) {
-                //System.out.println(film.item(i).getChildNodes().item(j).getTextContent());
-                for(int z = 0; z < row_count; z++) {
-                    if(Objects.equals(film.item(i).getChildNodes().item(j).getTextContent(), (String) info_table.getValueAt(z, 0))) {
-                        NodeList rooter = doc.getElementsByTagName("root").item(0).getChildNodes();
-                        int check = 0;
-                        for(int w = 0; w < rooter.getLength(); w++) {
-                            System.out.println((film.item(i).getChildNodes().item(j).getTextContent()).replaceAll(" ", ""));
-                            System.out.println(rooter.item(w).getNodeName());
-                            System.out.println("---");
-                            if(Objects.equals((film.item(i).getChildNodes().item(j).getTextContent()).replaceAll(" ", ""), rooter.item(w).getNodeName())) check = 1;
-                        }
-                        if(check == 0) {
-                            rooter = doc.getElementsByTagName("root");
-                            Node test_2 = null;
-                            Node test_3 = null;
-                            Element test = doc.createElement((film.item(i).getChildNodes().item(j).getTextContent()).replaceAll(" ", ""));
-                            test_2 = rooter.item(0).appendChild(test);
-                            test = doc.createElement("monday");
-                            test_3 = test_2.appendChild(test);
-                            test = doc.createElement("cinema");
-                            test.setTextContent("f");
-                            test_3.appendChild(test);
-
-                            test = doc.createElement("tuesday");
-                            test_3 = test_2.appendChild(test);
-                            test = doc.createElement("cinema");
-                            test.setTextContent("f");
-                            test_3.appendChild(test);
-
-                            test = doc.createElement("wednesday");
-                            test_3 = test_2.appendChild(test);
-                            test = doc.createElement("cinema");
-                            test.setTextContent("f");
-                            test_3.appendChild(test);
-
-                            test = doc.createElement("thursday");
-                            test_3 = test_2.appendChild(test);
-                            test = doc.createElement("cinema");
-                            test.setTextContent("f");
-                            test_3.appendChild(test);
-
-                            test = doc.createElement("friday");
-                            test_3 = test_2.appendChild(test);
-                            test = doc.createElement("cinema");
-                            test.setTextContent("f");
-                            test_3.appendChild(test);
-
-                            test = doc.createElement("saturday");
-                            test_3 = test_2.appendChild(test);
-                            test = doc.createElement("cinema");
-                            test.setTextContent("f");
-                            test_3.appendChild(test);
-
-                            test = doc.createElement("sunday");
-                            test_3 = test_2.appendChild(test);
-                            test = doc.createElement("cinema");
-                            test.setTextContent("f");
-                            test_3.appendChild(test);
-                        }
-                        check = 0;
-                    }
-                }
-            }
+        for (int i=0;i<root.getPeople().size();i++)
+        {
+            String [] str = new String[7];
+            str[0] = root.getPeople().get(i).getName();
+            str[1] = root.getPeople().get(i).getPass();
+            str[2] = root.getPeople().get(i).getGoss_number();
+            str[3] = root.getPeople().get(i).getMark();
+            str[4] = root.getPeople().get(i).getDate_techn_inspect();
+            str[5] = String.valueOf(root.getPeople().get(i).getFines().size());
+            str[6] = String.valueOf(root.getPeople().get(i).getKey()) ;
+            model.addDate(str);
         }
-
-        Transformer transformer = TransformerFactory.newInstance().newTransformer();
-        Source source = new DOMSource(doc);
-        Result result = new StreamResult(file);
-        transformer.transform (source, result); // Преобразовать XML ==> Источник в результат
     }
-
     public static void make_report(Table_model model){
 
         Document document = new Document(PageSize.A4, 50, 50, 50, 50);
 
-        PdfPTable t = new PdfPTable(4);
+        PdfPTable t = new PdfPTable(6);
 
         try {
 
@@ -241,8 +147,8 @@ public class Auto_list {
         JButton back = new JButton("Назад");
         JButton filter = new JButton("Сброс поиска");
         JButton search = new JButton("Поиск");
-        JButton go_to_cinema_list = new JButton("Посмотреть список штрафов");
-        JButton go_to_cinema_window = new JButton("профиль выбранного автомобилиста");
+        JButton go_to_fine_list = new JButton("Посмотреть список штрафов");
+        JButton go_to_auto_window = new JButton("профиль выбранного автомобилиста");
 
         //Кнопки верхний ряд
         JButton save = new JButton("Сохранить");
@@ -252,18 +158,18 @@ public class Auto_list {
         JButton save_pdf = new JButton("Сохранить отчет в pdf");
 
         //Кнопка для панели добавления нового фильма
-        JButton new_cinema = new JButton("Внести новые данные");
+        JButton new_auto = new JButton("Внести новые данные");
 
         //Кнопка для панели поиска
         JButton button_for_search_wind = new JButton("Искать");
 
 
         //Текстовые поля(Для добавления нового фильма)
-        JTextField name_cinema = new JTextField();
-        JTextField rate = new JTextField();
-        JTextField capacity = new JTextField();
-        JTextField time = new JTextField();
-        JTextField Hall = new JTextField();
+        JTextField name = new JTextField();
+        JTextField pass = new JTextField();
+        JTextField goss_number = new JTextField();
+        JTextField mark = new JTextField();
+        JTextField date_techn_inspect = new JTextField();
 
         //Текстовые поля(Для поиска)
         JTextField search_text_field = new JTextField();
@@ -295,7 +201,7 @@ public class Auto_list {
         JScrollPane scroll = new JScrollPane(info_table);//Задаем прокрутку нашей таблице
         scroll.setPreferredSize(new Dimension(950, 550)); //Задаем размеры окна
 
-        //parse_xml_film(model, info_table.getRowCount()); //Заносим инфу в таблицу
+        make_table(model, info_table.getRowCount(),root); //Заносим инфу в таблицу
 
         //Параметры основного окна
         main_frame.setSize(1030, 700); //Размеры окна
@@ -358,8 +264,8 @@ public class Auto_list {
         button_panel.add(filter);
         button_panel.add(search);
         button_panel.add(Box.createHorizontalStrut(50));
-        button_panel.add(go_to_cinema_list);
-        button_panel.add(go_to_cinema_window);
+        button_panel.add(go_to_fine_list);
+        button_panel.add(go_to_auto_window);
 
         button_panel_top.add(save);
         button_panel_top.add(Box.createHorizontalStrut(10));
@@ -372,17 +278,17 @@ public class Auto_list {
         button_panel_top.add(save_pdf);
 
         table_new_el_panel.add(name_auto_label);
-        table_new_el_panel.add(name_cinema);
+        table_new_el_panel.add(name);
         table_new_el_panel.add(pass_label);
-        table_new_el_panel.add(rate);
+        table_new_el_panel.add(pass);
         table_new_el_panel.add(number_label);
-        table_new_el_panel.add(capacity);
+        table_new_el_panel.add(goss_number);
         table_new_el_panel.add(mark_label);
-        table_new_el_panel.add(time);
+        table_new_el_panel.add(mark);
         table_new_el_panel.add(technical_inspection_label);
-        table_new_el_panel.add(Hall);
+        table_new_el_panel.add(date_techn_inspect);
         table_new_el_panel.add(Box.createHorizontalStrut(10));
-        table_new_el_panel.add(new_cinema);
+        table_new_el_panel.add(new_auto);
 
         search_panel.add(search_label);
         search_panel.add(list_search);
@@ -399,9 +305,26 @@ public class Auto_list {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(info_table.getSelectedRow() != -1) {
-                    model.get_row_sel_del(info_table.getSelectedRow());
+                    int k;
+                    int a =info_table.getSelectedRow();
+                    String b =model.getValueAt(a,6).toString();
+                    for(k=0;k<root.getPeople().size();k++)
+                    {
+
+                       if(b.equals(String.valueOf(k)))
+                       {
+                           root.getPeople().remove(k);
+                           for(int i=0;i<root.getFine().size();i++)
+                               if(root.getFine().get(i).getKey()==k)
+                                   root.getFine().remove(i);
+                           break;
+                       }
+
+                    }
+                    make_table(model,model.columnCount,root);
                 }
                 table_panel.add(scroll);
+
             }
         });;
 
@@ -409,11 +332,11 @@ public class Auto_list {
             @Override
             public void actionPerformed(ActionEvent e) {
                 make_new_table_row.setTitle("Добавление нового водителя");
-                name_cinema.setText("");
-                rate.setText("");
-                capacity.setText("");
-                time.setText("");
-                Hall.setText("");
+                name.setText("");
+                pass.setText("");
+                goss_number.setText("");
+                mark.setText("");
+                date_techn_inspect.setText("");
                 make_new_table_row.setVisible(true);
             }
         });;
@@ -438,38 +361,67 @@ public class Auto_list {
             }
         });;
 
-        new_cinema.addActionListener(new ActionListener() {
+        new_auto.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 make_new_table_row.setVisible(false);
                 if(flag[0] != "1") {
                     String [] new_str = new String[6];
-                    new_str[0] = name_cinema.getText();
-                    new_str[1] = rate.getText();
-                    new_str[2] = capacity.getText();
-                    new_str[3] = time.getText();
-                    new_str[4] = Hall.getText();;
+                    new_str[0] = name.getText();
+                    new_str[1] = pass.getText();
+                    new_str[2] = goss_number.getText();
+                    new_str[3] = mark.getText();
+                    new_str[4] = date_techn_inspect.getText();;
                     model.addDate(new_str);
                     table_panel.add(scroll);
+                    int max=0;
+                    for(int i=0;i<root.getPeople().size();i++)
+                    {
+                        if(max<root.getPeople().get(i).getKey())
+                            max=root.getPeople().get(i).getKey();
+                    }
+                    List<Fine> temp = new ArrayList<>();
+                    People p = new People(name.getText(),pass.getText(),goss_number.getText(),mark.getText(),date_techn_inspect.getText(),temp,max+1);
+                    root.getPeople().add(p);
                 }
                 else if(flag[0] == "2") {
                     //parse_xml_film(model, info_table.getRowCount());
                     flag[0] = "-1";
                 }
-                else {
+                else
+                {
                     make_new_table_row.setTitle("Добавление нового водителя");
-                    String [] new_str = new String[6];
-                    new_str[0] = name_cinema.getText();
-                    new_str[1] = rate.getText();
-                    new_str[2] = capacity.getText();
-                    new_str[3] = time.getText();
-                    new_str[4] = Hall.getText();
-                    model.get_row_sel_change(info_table.getSelectedRow(), new_str);
+
+                    //model.get_row_sel_change(info_table.getSelectedRow(), new_str);
                     table_panel.add(scroll);
                     flag[0] = "-1";
+
+                    int k;
+                    int a =info_table.getSelectedRow();
+                    String b =model.getValueAt(a,6).toString();
+                    for(k=0;k<root.getPeople().size();k++)
+                    {
+                        if(b.equals(String.valueOf(root.getPeople().get(k).getKey())))
+                        {
+                            root.getPeople().get(k).setName(name.getText());
+                            root.getPeople().get(k).setPass(pass.getText());
+                            root.getPeople().get(k).setGoss_number(goss_number.getText());
+                            root.getPeople().get(k).setMark(mark.getText());
+                            root.getPeople().get(k).setDate_techn_inspect(date_techn_inspect.getText());
+                            for(int i=0;i<root.getFine().size();i++)
+                            {
+                                if(root.getFine().get(i).getKey()==k)
+                                {
+                                    root.getFine().get(i).setName(name.getText());
+                                    root.getFine().get(i).setGoss(goss_number.getText());
+                                }
+                            }
+                            break;
+                        }
+                    }
+                    make_table(model,model.columnCount,root);
                 }
-            }
-        });;
+            }});;
 
         change.addActionListener(new ActionListener() {
             @Override
@@ -479,11 +431,11 @@ public class Auto_list {
                         make_new_table_row.setTitle("Изменение данных");
                         make_new_table_row.setVisible(true);
                         flag[0] = "1";
-                        name_cinema.setText((String) info_table.getValueAt(info_table.getSelectedRow(), 0));
-                        rate.setText((String) info_table.getValueAt(info_table.getSelectedRow(), 1));
-                        capacity.setText((String) info_table.getValueAt(info_table.getSelectedRow(), 2));
-                        time.setText((String) info_table.getValueAt(info_table.getSelectedRow(), 3));
-                        Hall.setText((String) info_table.getValueAt(info_table.getSelectedRow(), 4));
+                        name.setText((String) info_table.getValueAt(info_table.getSelectedRow(), 0));
+                        pass.setText((String) info_table.getValueAt(info_table.getSelectedRow(), 1));
+                        goss_number.setText((String) info_table.getValueAt(info_table.getSelectedRow(), 2));
+                        mark.setText((String) info_table.getValueAt(info_table.getSelectedRow(), 3));
+                        date_techn_inspect.setText((String) info_table.getValueAt(info_table.getSelectedRow(), 4));
                     }
                     else {
                         flag[0] = "-1";
@@ -525,7 +477,7 @@ public class Auto_list {
             }
         });;
 
-        save.addActionListener(new ActionListener() {
+        /*save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -538,20 +490,20 @@ public class Auto_list {
                     e1.printStackTrace();
                 }
             }
-        });;
+        });;*/
 
-        go_to_cinema_window.addActionListener(new ActionListener() {
+        go_to_auto_window.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(info_table.getSelectedRow() != -1) {
-                    auto_window.name_man = (info_table.getValueAt(info_table.getSelectedRow(), 0).toString());
-                    auto_window.main(root);
+                    auto_window.name_man = (model.getValueAt(info_table.getSelectedRow(), 6).toString());
+                    auto_window.main(root,Integer.parseInt(model.getValueAt(info_table.getSelectedRow(), 6).toString()));
                     main_frame.setVisible(false);
                 }
             }
         });;
 
-        go_to_cinema_list.addActionListener(new ActionListener() {
+        go_to_fine_list.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 fine_list.main(root);
