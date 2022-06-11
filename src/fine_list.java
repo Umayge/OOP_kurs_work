@@ -205,7 +205,7 @@ public class fine_list {
 
         //Параметры основного окна
         main_frame.setSize(1030, 700); //Размеры окна
-        main_frame.setTitle("Список фильмов"); //Заголово окна
+        main_frame.setTitle("Список нарушений"); //Заголово окна
         main_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Что происходит при нажатии на крестик(В нашем случае закрытие)
         main_frame.setResizable(false);//Запрещаем дополнительно развертывать окно
         main_frame.setLocationRelativeTo(null);//Располагаем окно в центре экрана
